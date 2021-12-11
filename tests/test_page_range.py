@@ -1,5 +1,5 @@
 import pytest
-from progress.page import Page, Range
+from book.page import Page, Range
 
 
 # 범위 값은 `int type`이다
