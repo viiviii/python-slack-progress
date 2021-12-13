@@ -25,7 +25,7 @@ def progress_result_message(goal_page: Range, emoji: str, percent: int) -> dict:
     }
 
 
-def progress_error_message(text: str, all_page_range: Range) -> dict:
+def progress_error_message(command: str, all_page_range: Range) -> dict:
     return {
         "blocks": [
             {
@@ -33,7 +33,7 @@ def progress_error_message(text: str, all_page_range: Range) -> dict:
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": f"⚠️ 페이지 범위 내의 숫자만 가능해요!({_range_text(all_page_range)}) -> 입력 값 _{text}_"
+                        "text": f"⚠️ 페이지 범위 내의 숫자만 가능해요!({_range_text(all_page_range)}) -> 입력 값 _{command}_"
                     }
                 ]
             }
