@@ -1,16 +1,54 @@
-# This is a sample Python script.
+import base64
+import json
+import urllib.parse
+from typing import Final, List
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from book.message import progress_error_message, progress_result_message
+from book.page import Range, Page
+from book.progress import progress_percent, progress_emoji
+
+page: Final = Page(_all=Range(1, 477), goal=Range(96, 176))
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def lambda_handler(event, context) -> dict:
+    body: str = decode(event['body'])
+    slack_data: dict = parse_query_string(body)
+    commands: List[str] = slack_data.get('text')
+
+    if not commands:
+        return response(progress_error_message('없음', page.all))
+
+    try:
+        # TODO: commands[0] 리팩토링
+        current_page = int(commands[0])
+    except ValueError:
+        return response(progress_error_message(commands[0], page.all))
+
+    if not page_range_validate(current_page, page.all):
+        return response(progress_error_message(str(current_page), page.all))
+
+    goal_percent: str = progress_percent(current_page, page.goal)
+    goal_emoji: str = progress_emoji(goal_percent)
+    return response(progress_result_message(page.goal, goal_emoji, goal_percent))
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# TODO: Range가 하도록
+def page_range_validate(current_page: int, _range: Range) -> bool:
+    return _range.first <= current_page <= _range.last
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+# TODO: 메서드명이 아쉬워
+def decode(string: str) -> str:
+    return base64.b64decode(string).decode()
+
+
+def parse_query_string(query_string: str) -> dict:
+    return urllib.parse.parse_qs(query_string)
+
+
+def response(view_data: dict) -> dict:
+    return {
+        "statusCode": 200,
+        "headers": {"Content-Type": "application/json"},
+        "body": json.dumps(view_data),
+    }
