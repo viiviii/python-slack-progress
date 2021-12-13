@@ -8,7 +8,7 @@ class Range:
         self.last: Final = last
 
     def __str__(self) -> None:
-        return 'Range({}, {})'.format(self.first, self.last)
+        return f"Range({self.first}, {self.last})"
 
     @staticmethod
     def _validate(first: int, last: int) -> None:
@@ -27,7 +27,7 @@ class Page:
         self.goal: Final = goal
 
     def __str__(self) -> None:
-        return 'Page(all={}, goal={})'.format(self.all, self.goal)
+        return f"Page(all={self.all}, goal={self.goal})"
 
     @staticmethod
     def _validate(_all: Range, goal: Range) -> None:
