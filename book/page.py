@@ -19,6 +19,9 @@ class PageRange:
     def _valid_types(first: int, last: int) -> bool:
         return type(first) is int and type(last) is int
 
+    def includes(self, page: int) -> bool:
+        return self.first <= page <= self.last
+
 
 class Page:
     def __init__(self, _all: PageRange, goal: PageRange) -> None:

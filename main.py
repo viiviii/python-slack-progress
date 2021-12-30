@@ -24,17 +24,12 @@ def lambda_handler(event, context) -> dict:
     except ValueError:
         return response(progress_error_message(commands[0], page.all))
 
-    if not page_range_validate(current_page, page.all):
+    if not page.all.includes(current_page):
         return response(progress_error_message(str(current_page), page.all))
 
     goal_percent: str = progress_percent(current_page, page.goal)
     goal_emoji: str = progress_emoji(goal_percent)
     return response(progress_result_message(page.goal, goal_emoji, goal_percent))
-
-
-# TODO: Range가 하도록
-def page_range_validate(current_page: int, _range: PageRange) -> bool:
-    return _range.first <= current_page <= _range.last
 
 
 # TODO: 메서드명이 아쉬워
