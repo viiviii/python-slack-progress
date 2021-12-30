@@ -23,6 +23,9 @@ class PageRange:
         return self.first <= page <= self.last
 
 
+# todo: 왤케 필요 없어보이셔 그리고 클래스명도 뭔가 별로임
+# todo: 유효성 검사도 PageRange / all, goal 분리
+# todo: 3000 여기랑 테스트에서 사용중인 것 상수로 변경
 class Page:
     def __init__(self, _all: PageRange, goal: PageRange) -> None:
         Page._validate(_all, goal)

@@ -1,5 +1,7 @@
 from main import decode, parse_query_string, lambda_handler
 
+# todo: 테스트가 너무 빈약함
+
 
 def test_lambda_handler():
     dummy = {'body': 'dGV4dD05NQ=='}
