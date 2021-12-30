@@ -8,7 +8,7 @@ class PageRange:
         self.last: Final = last
 
     def __str__(self) -> None:
-        return f"Range({self.first}, {self.last})"
+        return f"p.{self.first}~{self.last}"
 
     @staticmethod
     def _validate(first: int, last: int) -> None:
