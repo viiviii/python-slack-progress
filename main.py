@@ -4,10 +4,10 @@ import urllib.parse
 from typing import Final, List
 
 from book.message import progress_error_message, progress_result_message
-from book.page import Range, Page
+from book.page import PageRange, Page
 from book.progress import progress_percent, progress_emoji
 
-page: Final = Page(_all=Range(1, 477), goal=Range(96, 176))
+page: Final = Page(_all=PageRange(1, 477), goal=PageRange(96, 176))
 
 
 def lambda_handler(event, context) -> dict:
@@ -33,7 +33,7 @@ def lambda_handler(event, context) -> dict:
 
 
 # TODO: Range가 하도록
-def page_range_validate(current_page: int, _range: Range) -> bool:
+def page_range_validate(current_page: int, _range: PageRange) -> bool:
     return _range.first <= current_page <= _range.last
 
 

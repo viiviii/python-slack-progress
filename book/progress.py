@@ -1,11 +1,11 @@
 from typing import Final
 
-from book.page import Range
+from book.page import PageRange
 
 
-def progress_percent(page: int, goal_range: Range) -> int:
-    goal_page_count: Final = goal_range.last - goal_range.first + 1
-    page_count: Final = page - goal_range.first + 1
+def progress_percent(current: int, goal: PageRange) -> int:
+    goal_page_count: Final = goal.last - goal.first + 1
+    page_count: Final = current - goal.first + 1
     return 0 if page_count < 1 else int(page_count / goal_page_count * 100)
 
 
