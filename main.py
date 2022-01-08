@@ -27,7 +27,7 @@ def lambda_handler(event, context) -> dict:
     if not page.all.includes(current_page):
         return response(progress_error_message(str(current_page), page.all))
 
-    goal_percent: str = progress_percent(current_page, page.goal)
+    goal_percent: int = progress_percent(current_page, page.goal)
     goal_emoji: str = progress_emoji(goal_percent)
     return response(progress_result_message(page.goal, goal_emoji, goal_percent))
 

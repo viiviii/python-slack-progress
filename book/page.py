@@ -7,7 +7,7 @@ class PageRange:
         self.first: Final = first
         self.last: Final = last
 
-    def __str__(self) -> None:
+    def __str__(self) -> str:
         return f"p.{self.first}~{self.last}"
 
     @staticmethod
@@ -32,7 +32,7 @@ class Page:
         self.all: Final = _all
         self.goal: Final = goal
 
-    def __str__(self) -> None:
+    def __str__(self) -> str:
         return f"Page(all={self.all}, goal={self.goal})"
 
     @staticmethod
