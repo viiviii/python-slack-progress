@@ -12,10 +12,7 @@ _text_is_minus999: Final = "dGV4dD0tOTk5"
 def test_lambda_handler_valid_commands_returns_result_message():
     event = {'body': _text_is_95}
 
-    # TODO
-    percent = progress_percent(95, page.goal)
-    emoji = progress_emoji(percent)
-    result_message = progress_result_message(page.goal, emoji, percent)
+    result_message = progress_result_message(progress(95, page.goal), page.goal)
     expected = response(result_message)
     assert expected == lambda_handler(event, None)
 

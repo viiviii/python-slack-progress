@@ -4,7 +4,7 @@ from main import page
 
 # 결과 메세지는 채널의 모든 구성원에게 보인다
 def test_result_message_response_type_is_channel():
-    message = progress_result_message(page.goal, "", 0)
+    message = progress_result_message("", page.goal)
     assert "in_channel" == message.get("response_type")
 
 

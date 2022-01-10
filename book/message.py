@@ -1,7 +1,7 @@
 from book.page import PageRange
 
 
-def progress_result_message(goal: PageRange, emoji: str, percent: int) -> dict:
+def progress_result_message(progress: str, goal: PageRange) -> dict:
     return {
         "response_type": "in_channel",
         "blocks": [
@@ -18,7 +18,7 @@ def progress_result_message(goal: PageRange, emoji: str, percent: int) -> dict:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"{emoji} *{percent}*%"
+                    "text": progress
                 }
             }
         ]

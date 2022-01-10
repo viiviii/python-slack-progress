@@ -5,7 +5,7 @@ from typing import Final, List
 
 from book.message import progress_error_message, progress_result_message
 from book.page import PageRange, Page
-from book.progress import progress_percent, progress_emoji
+from book.progress import progress
 
 page: Final = Page(_all=PageRange(1, 477), goal=PageRange(96, 176))
 
@@ -27,9 +27,8 @@ def lambda_handler(event, context) -> dict:
     if not page.all.includes(current_page):
         return response(progress_error_message(str(current_page), page.all))
 
-    goal_percent: int = progress_percent(current_page, page.goal)
-    goal_emoji: str = progress_emoji(goal_percent)
-    return response(progress_result_message(page.goal, goal_emoji, goal_percent))
+    current_progress: str = progress(current_page, page.goal)
+    return response(progress_result_message(current_progress, page.goal))
 
 
 def base64decode(string: str) -> str:
