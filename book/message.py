@@ -27,6 +27,7 @@ def progress_result_message(goal: PageRange, emoji: str, percent: int) -> dict:
 
 def progress_error_message(command: str, _all: PageRange) -> dict:
     return {
+        "response_type": "ephemeral",
         "blocks": [
             {
                 "type": "context",
