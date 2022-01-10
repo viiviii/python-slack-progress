@@ -11,7 +11,7 @@ page: Final = Page(_all=PageRange(1, 477), goal=PageRange(96, 176))
 
 
 def lambda_handler(event, context) -> dict:
-    body: str = decode(event['body'])
+    body: str = base64decode(event['body'])
     slack_data: dict = parse_query_string(body)
     commands: List[str] = slack_data.get('text')
 
@@ -32,8 +32,7 @@ def lambda_handler(event, context) -> dict:
     return response(progress_result_message(page.goal, goal_emoji, goal_percent))
 
 
-# TODO: 메서드명이 아쉬워
-def decode(string: str) -> str:
+def base64decode(string: str) -> str:
     return base64.b64decode(string).decode()
 
 

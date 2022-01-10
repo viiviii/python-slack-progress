@@ -47,10 +47,10 @@ def test_out_of_range_command_returns_error_message():
     assert expected == lambda_handler(event, None)
 
 
-def test_decode():
-    assert "text=95" == decode(_text_is_95)
-    assert "text=hi" == decode(_text_is_hi)
-    assert "text=-999" == decode(_text_is_minus999)
+def test_base64decode():
+    assert "text=95" == base64decode(_text_is_95)
+    assert "text=hi" == base64decode(_text_is_hi)
+    assert "text=-999" == base64decode(_text_is_minus999)
 
 
 def test_parse_query_string():
