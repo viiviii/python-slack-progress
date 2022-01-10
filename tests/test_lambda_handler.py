@@ -60,11 +60,11 @@ def test_parse_query_string():
 
 
 def test_response_status_code_is_200():
-    actual = response(view_data={})
+    actual = response(message={})
     assert 200 == actual.get("statusCode")
 
 
 def test_response_content_type_is_json():
-    actual = response(view_data={})
+    actual = response(message={})
     expect = {"Content-Type": "application/json"}
     assert expect == actual.get("headers")

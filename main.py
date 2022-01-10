@@ -41,9 +41,9 @@ def parse_query_string(query_string: str) -> dict:
     return urllib.parse.parse_qs(query_string)
 
 
-def response(view_data: dict) -> dict:
+def response(message: dict) -> dict:
     return {
         "statusCode": 200,
         "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(view_data),
+        "body": json.dumps(message),
     }
