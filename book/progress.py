@@ -1,16 +1,14 @@
 from typing import Final
 
-from book.page import PageRange
 
-
-def progress(current: int, goal: PageRange) -> str:
+def progress(current: int, goal: range) -> str:
     percent = _percent(current, goal)
     return f"{_emoji(percent)} *{percent}*%"
 
 
-def _percent(current: int, goal: PageRange) -> int:
-    goal_page_count: Final = goal.last - goal.first + 1
-    page_count: Final = current - goal.first + 1
+def _percent(current: int, goal: range) -> int:
+    goal_page_count: Final = goal.stop - goal.start + 1
+    page_count: Final = current - goal.start + 1
     return 0 if page_count < 1 else int(page_count / goal_page_count * 100)
 
 

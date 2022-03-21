@@ -1,7 +1,6 @@
-from book.page import PageRange
 
 
-def progress_result_message(progress: str, goal: PageRange) -> dict:
+def progress_result_message(progress: str, goal: range) -> dict:
     return {
         "response_type": "in_channel",
         "blocks": [
@@ -10,7 +9,7 @@ def progress_result_message(progress: str, goal: PageRange) -> dict:
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": f"> 📚 *이번 목표* _{goal}_"
+                        "text": f"> 📚 *이번 목표* _{goal.start} ~ {goal.stop}_"
                     }
                 ]
             },
@@ -25,7 +24,7 @@ def progress_result_message(progress: str, goal: PageRange) -> dict:
     }
 
 
-def progress_error_message(command: str, _all: PageRange) -> dict:
+def progress_error_message(command: str, _all: range) -> dict:
     return {
         "response_type": "ephemeral",
         "blocks": [
@@ -34,7 +33,7 @@ def progress_error_message(command: str, _all: PageRange) -> dict:
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": f"⚠️ 페이지 범위 내의 숫자만 가능해요!({_all}) -> 입력 값 _{command}_"
+                        "text": f"⚠️ 전체 페이지 범위 내의 숫자만 가능해요!({_all.start} ~ {_all.stop}) -> 입력 값 _{command}_"
                     }
                 ]
             }

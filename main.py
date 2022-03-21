@@ -4,10 +4,10 @@ import urllib.parse
 from typing import Final, List
 
 from book.message import progress_error_message, progress_result_message
-from book.page import PageRange, Page
+from book.page import Page
 from book.progress import progress
 
-page: Final = Page(_all=PageRange(1, 477), goal=PageRange(96, 176))
+page: Final = Page(_all=range(1, 477), goal=range(96, 176))
 
 
 def lambda_handler(event, context) -> dict:
@@ -24,7 +24,7 @@ def lambda_handler(event, context) -> dict:
     except ValueError:
         return response(progress_error_message(commands[0], page.all))
 
-    if not page.all.includes(current_page):
+    if current_page not in page.all:
         return response(progress_error_message(str(current_page), page.all))
 
     current_progress: str = progress(current_page, page.goal)

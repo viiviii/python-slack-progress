@@ -1,45 +1,16 @@
 from typing import Final
 
 
-class PageRange:
-    def __init__(self, first: int, last: int) -> None:
-        PageRange._validate(first, last)
-        self.first: Final = first
-        self.last: Final = last
-
-    def __str__(self) -> str:
-        return f"p.{self.first}~{self.last}"
-
-    @staticmethod
-    def _validate(first: int, last: int) -> None:
-        if not PageRange._valid_types(first, last):
-            raise TypeError(f"Arguments is not int type: first={type(first)}, last={type(last)}")
-
-    @staticmethod
-    def _valid_types(first: int, last: int) -> bool:
-        return type(first) is int and type(last) is int
-
-    def includes(self, page: int) -> bool:
-        return self.first <= page <= self.last
-
-
 # todo: 왤케 필요 없어보이셔 그리고 클래스명도 뭔가 별로임
 # todo: 유효성 검사도 PageRange / all, goal 분리
 # todo: 3000 여기랑 테스트에서 사용중인 것 상수로 변경
 class Page:
-    def __init__(self, _all: PageRange, goal: PageRange) -> None:
-        Page._validate(_all, goal)
+    def __init__(self, _all: range, goal: range) -> None:
+        if goal.start not in _all or goal.stop not in _all:
+            raise ValueError(f"Invalid progress ranges: {_all}, {goal}")
         self.all: Final = _all
         self.goal: Final = goal
 
     def __str__(self) -> str:
         return f"Page(all={self.all}, goal={self.goal})"
 
-    @staticmethod
-    def _validate(_all: PageRange, goal: PageRange) -> None:
-        if not Page._valid_ranges(_all, goal):
-            raise ValueError(f"Invalid progress ranges: {_all}, {goal}")
-
-    @staticmethod
-    def _valid_ranges(_all: PageRange, goal: PageRange) -> bool:
-        return 0 < _all.first <= goal.first <= goal.last <= _all.last < 3000
