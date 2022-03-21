@@ -1,4 +1,4 @@
-from book.message import _progress, _percent, _emoji, progress_result_message, progress_error_message
+from book.message import _percent, _emoji, progress_result_message, progress_error_message
 
 
 # 결과 메세지는 채널의 모든 구성원에게 보인다
@@ -11,12 +11,6 @@ def test_result_message_response_type_is_channel():
 def test_error_message_response_type_is_ephemeral():
     message = progress_error_message("", range(1, 10))
     assert "ephemeral" == message.get("response_type")
-
-
-def test_progress():
-    goal = range(1, 4)
-    current = 1
-    assert "💚🤍🤍🤍🤍 *25*%" == _progress(current, goal)
 
 
 def test_progress_percent_first_page_is_1():

@@ -2,6 +2,7 @@ from typing import Final
 
 
 def progress_result_message(current: int, goal: range) -> dict:
+    percent: Final = _percent(current, goal)
     return {
         "response_type": "in_channel",
         "blocks": [
@@ -18,7 +19,7 @@ def progress_result_message(current: int, goal: range) -> dict:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": _progress(current, goal)
+                    "text": f"{_emoji(percent)} *{percent}*%"
                 }
             }
         ]
@@ -40,11 +41,6 @@ def progress_error_message(command: str, _all: range) -> dict:
             }
         ]
     }
-
-
-def _progress(current: int, goal: range) -> str:
-    percent = _percent(current, goal)
-    return f"{_emoji(percent)} *{percent}*%"
 
 
 def _percent(current: int, goal: range) -> int:
