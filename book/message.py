@@ -1,7 +1,7 @@
 from typing import Final
 
 
-def progress_result_message(current: int, goal: range) -> dict:
+def progress_percent_message(current: int, goal: range) -> dict:
     percent: Final = _percent(current, goal)
     return {
         "response_type": "in_channel",
@@ -26,7 +26,7 @@ def progress_result_message(current: int, goal: range) -> dict:
     }
 
 
-def progress_error_message(command: str, _all: range) -> dict:
+def error_message(command: str, _all: range) -> dict:
     return {
         "response_type": "ephemeral",
         "blocks": [

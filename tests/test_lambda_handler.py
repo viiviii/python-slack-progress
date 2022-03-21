@@ -1,53 +1,39 @@
 from main import *
 
+
 # 유효하지 않은 값이 오더라도 200으로 응답해야 내가 처리한 예외 메세지가 사용자에게 보임
 # https://api.slack.com/interactivity/handling#acknowledgment_response
-
-_text_is_95: Final = "dGV4dD05NQ=="
-_text_is_hi: Final = "dGV4dD1oaQ=="
-_text_is_minus999: Final = "dGV4dD0tOTk5"
 
 
 # 올바른 입력 값일 경우 응답에 결과 메세지를 리턴한다
 def test_lambda_handler_valid_commands_returns_result_message():
-    event = {'body': _text_is_95}
-
-    result_message = progress_result_message(95, goal_range)
-    expected = response(result_message)
-    assert expected == lambda_handler(event, None)
+    text_is_95: Final = "dGV4dD05NQ=="
+    actual = lambda_handler({'body': text_is_95}, None)
+    message = progress_percent_message(95, goal_range)
+    assert actual == response(message)
 
 
 # 입력 값이 빈 값일 경우 응답에 에러 메세지를 리턴한다
 def test_empty_command_returns_error_message():
-    event = {'body': ''}
-
-    error_message = progress_error_message("없음", all_range)
-    expected = response(error_message)
-    assert expected == lambda_handler(event, None)
+    actual = lambda_handler({'body': ''}, None)
+    message = error_message("없음", all_range)
+    assert actual == response(message)
 
 
 # 입력 값이 숫자가 아닌 경우 응답에 에러 메세지를 리턴한다
 def test_invalid_command_returns_error_message():
-    event = {'body': _text_is_hi}
-
-    error_message = progress_error_message("hi", all_range)
-    expected = response(error_message)
-    assert expected == lambda_handler(event, None)
+    text_is_hi: Final = "dGV4dD1oaQ=="
+    actual = lambda_handler({'body': text_is_hi}, None)
+    message = error_message("hi", all_range)
+    assert actual == response(message)
 
 
 # 입력 값이 전체 페이지 범위에 속하지 않으면 응답에 에러 메세지를 리턴한다
 def test_out_of_range_command_returns_error_message():
-    event = {'body': _text_is_minus999}
-
-    error_message = progress_error_message("-999", all_range)
-    expected = response(error_message)
-    assert expected == lambda_handler(event, None)
-
-
-def test_base64decode():
-    assert "text=95" == base64decode(_text_is_95)
-    assert "text=hi" == base64decode(_text_is_hi)
-    assert "text=-999" == base64decode(_text_is_minus999)
+    text_is_minus999: Final = "dGV4dD0tOTk5"
+    actual = lambda_handler({'body': text_is_minus999}, None)
+    message = error_message("-999", all_range)
+    assert actual == response(message)
 
 
 def test_parse_query_string():
