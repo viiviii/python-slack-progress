@@ -12,7 +12,7 @@ _text_is_minus999: Final = "dGV4dD0tOTk5"
 def test_lambda_handler_valid_commands_returns_result_message():
     event = {'body': _text_is_95}
 
-    result_message = progress_result_message(progress(95, goal_range), goal_range)
+    result_message = progress_result_message(95, goal_range)
     expected = response(result_message)
     assert expected == lambda_handler(event, None)
 

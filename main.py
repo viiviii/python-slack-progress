@@ -4,7 +4,6 @@ import urllib.parse
 from typing import Final, List
 
 from book.message import progress_error_message, progress_result_message
-from book.progress import progress
 
 all_range: Final = range(1, 477)
 goal_range: Final = range(96, 176)
@@ -27,8 +26,7 @@ def lambda_handler(event, context) -> dict:
     if current_page not in all_range:
         return response(progress_error_message(str(current_page), all_range))
 
-    current_progress: str = progress(current_page, goal_range)
-    return response(progress_result_message(current_progress, goal_range))
+    return response(progress_result_message(current_page, goal_range))
 
 
 def base64decode(string: str) -> str:
