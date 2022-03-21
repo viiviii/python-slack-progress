@@ -12,7 +12,7 @@ _text_is_minus999: Final = "dGV4dD0tOTk5"
 def test_lambda_handler_valid_commands_returns_result_message():
     event = {'body': _text_is_95}
 
-    result_message = progress_result_message(progress(95, page.goal), page.goal)
+    result_message = progress_result_message(progress(95, goal_range), goal_range)
     expected = response(result_message)
     assert expected == lambda_handler(event, None)
 
@@ -21,7 +21,7 @@ def test_lambda_handler_valid_commands_returns_result_message():
 def test_empty_command_returns_error_message():
     event = {'body': ''}
 
-    error_message = progress_error_message("없음", page.all)
+    error_message = progress_error_message("없음", all_range)
     expected = response(error_message)
     assert expected == lambda_handler(event, None)
 
@@ -30,7 +30,7 @@ def test_empty_command_returns_error_message():
 def test_invalid_command_returns_error_message():
     event = {'body': _text_is_hi}
 
-    error_message = progress_error_message("hi", page.all)
+    error_message = progress_error_message("hi", all_range)
     expected = response(error_message)
     assert expected == lambda_handler(event, None)
 
@@ -39,7 +39,7 @@ def test_invalid_command_returns_error_message():
 def test_out_of_range_command_returns_error_message():
     event = {'body': _text_is_minus999}
 
-    error_message = progress_error_message("-999", page.all)
+    error_message = progress_error_message("-999", all_range)
     expected = response(error_message)
     assert expected == lambda_handler(event, None)
 
